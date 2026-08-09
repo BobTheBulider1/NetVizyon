@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Net Vizyon ile profesyonel web tasarım, e-ticaret ve dijital çözümler.">
+    <meta name="keywords" content="web tasarım, ucuz web sitesi, kaliteli web sitesi, net vizyon, portfolyo, e-ticaret sitesi, kurumsal web tasarım">
+    <meta name="author" content="Net Vizyon">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.netvizyon.org/">
+    <!-- Favicon & Apple Touch Icon (Vercel & Apple Uyumlu) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="https://www.netvizyon.org/favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="https://www.netvizyon.org/favicon.png">
+    
+    <!-- Open Graph / Sosyal Medya Paylaşım Önizlemesi (WhatsApp, Instagram, Facebook vb.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.netvizyon.org/">
+    <meta property="og:title" content="Net Vizyon | Profesyonel Web Tasarım">
+    <meta property="og:description" content="Net Vizyon ile profesyonel web tasarım, e-ticaret ve dijital çözümler.">
+    <meta property="og:image" content="https://www.netvizyon.org/favicon.png">
+
+    <!-- Twitter / X Paylaşım Önizlemesi -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.netvizyon.org/">
+    <meta property="twitter:title" content="Net Vizyon | Profesyonel Web Tasarım">
+    <meta property="twitter:description" content="Net Vizyon ile profesyonel web tasarım, e-ticaret ve dijital çözümler.">
+    <meta property="twitter:image" content="https://www.netvizyon.org/favicon.png">
+
+    <title>Net Vizyon | Profesyonel Web Tasarım</title>
+    
+    <!-- Google Fonts - Custom Font System (Plus Jakarta Sans, Space Mono & Caveat Signature) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Interactive WebGL 3D background canvas -->
+    <canvas id="canvas-3d-mesh"></canvas>
+
+    <!-- Creative Background Grid & Glowing Spheres -->
+    <div class="grid-overlay"></div>
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+
+    <!-- Header / Navigation Bar -->
+    <header class="main-header">
+        <nav class="glass-nav" id="main-nav">
+            <!-- GPU Animated Background capsule -->
+            <div class="nav-background-capsule"></div>
+            
+            <div class="nav-container">
+                <a href="#home" class="logo-link">
+                    <img src="assets/logo.png" alt="Net Vizyon Logo" class="nav-logo">
+                </a>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#home" class="nav-link active">Ana Sayfa</a>
+                    <a href="#services" class="nav-link">Hizmetler</a>
+                    <a href="#portfolio" class="nav-link">Portfolyo</a>
+                    <a href="#pricing" class="nav-link">Fiyat Hesaplama</a>
+                    <a href="#faq" class="nav-link">SSS</a>
+                    <a href="#contact" class="nav-link">İletişim</a>
+                    <a href="#contact" class="btn btn-primary mobile-cta">Teklif Al</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <a href="#contact" class="btn btn-primary desktop-cta">Teklif Al</a>
+                    <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menüyü Aç">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge animate-fade-in">
+                    <span class="badge-dot"></span> Web'in Geleceğini Tasarlıyoruz
+                </div>
+                <h1 class="hero-title animate-slide-up">
+                    <span class="title-bold">Sınırsız</span> <img src="assets/vizyon kelimesi.png" alt="Vizyon" class="title-image-vizyon"> <br>
+                    <span class="text-gradient signature-text hero-signature">Ekonomik Tasarım</span>
+                </h1>
+                <p class="hero-description animate-slide-up-delay">
+                    İyi tasarım herkesin hakkıdır. Net Vizyon olarak, işletmenizin dijital vitrinini yüksek ajans maliyetleri olmadan, son teknoloji altyapıyla ve üstün hız kalitesiyle kuruyoruz.
+                </p>
+                <div class="hero-actions animate-slide-up-delay2">
+                    <a href="#pricing" class="btn btn-primary btn-lg">Fiyat Hesapla</a>
+                    <a href="#portfolio" class="btn btn-secondary btn-lg">Çalışmamızı İncele <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+            </div>
+            
+            <div class="hero-visual animate-fade-in-delay">
+                <!-- Abstract Creative Dashboard Frame -->
+                <div class="creative-visual-wrapper">
+                    <div class="glass-card hero-preview-card">
+                        <div class="card-header-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-header">
+                                <div class="preview-logo-placeholder"></div>
+                                <div class="preview-nav-placeholders">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="preview-hero">
+                                <div class="preview-line long"></div>
+                                <div class="preview-line medium"></div>
+                                <div class="preview-line short"></div>
+                                <div class="preview-button-placeholder"></div>
+                            </div>
+                            <div class="preview-grid">
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Overlapping glowing layout panel -->
+                    <div class="floating-panel glass-card">
+                        <div class="panel-icon"><i class="fa-solid fa-bolt text-blue"></i></div>
+                        <div class="panel-info">
+                            <div class="panel-label">Sayfa Hızı</div>
+                            <div class="panel-value">A+ %99.8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Hizmetlerimiz</h2>
+                <p class="section-subtitle">Gereksiz detaylardan uzak, işletmenizi zirveye taşıyacak temel dijital çözümler.</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service 1 (Large / Featured) -->
+                <div class="glass-card service-card featured-service tilt-3d">
+                    <div class="service-icon-wrapper" data-tilt-depth="30">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="service-card-title" data-tilt-depth="15">Kurumsal Web Siteleri</h3>
+                    <p class="service-card-desc">Şirketinizin vizyonunu, değerlerini ve ürünlerini yansıtan, müşterilerinizde güven uyandıran, modern tasarım çizgileriyle hazırlanmış kurumsal web sayfaları.</p>
+                    <div class="service-tags">
+                        <span>#YönetimPaneli</span>
+                        <span>#HızOptimizasyonu</span>
+                        <span>#MobilUyum</span>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="glass-card service-card tilt-3d">
+                    <div class="service-icon-wrapper" data-tilt-depth="30">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="service-card-title" data-tilt-depth="15">E-Ticaret Sistemleri</h3>
+                    <p class="service-card-desc">Ürünlerinizi dijital pazarda satmanız için gerekli güvenli ödeme altyapılı, kargo entegrasyonlu modern sanal mağazalar.</p>
+                    <div class="service-tags">
+                        <span>#SanalPos</span>
+                        <span>#StokTakibi</span>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="glass-card service-card tilt-3d">
+                    <div class="service-icon-wrapper" data-tilt-depth="30">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="service-card-title" data-tilt-depth="15">Landing Page (Tek Sayfa)</h3>
+                    <p class="service-card-desc">Reklam kampanyalarınız veya özel hizmet lansmanlarınız için tasarlanmış yüksek dönüşüm oranlı tek sayfalık web tasarımları.</p>
+                    <div class="service-tags">
+                        <span>#DönüşümOdaklı</span>
+                        <span>#HızlıTeklif</span>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="glass-card service-card tilt-3d">
+                    <div class="service-icon-wrapper" data-tilt-depth="30">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h3 class="service-card-title" data-tilt-depth="15">SEO & Performans</h3>
+                    <p class="service-card-desc">Web sitenizin Google aramalarında öne çıkması ve saniyeler içinde açılması için en son teknik standartlarda optimizasyon paketleri.</p>
+                    <div class="service-tags">
+                        <span>#GoogleSEO</span>
+                        <span>#PageSpeedA+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (Asymmetrical Case Study Layout) -->
+    <section id="portfolio" class="portfolio-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Portfolyo</h2>
+                <p class="section-subtitle">Hayata geçirdiğimiz ve müşterimizin dijital başarısını temsil eden gurur duyduğumuz projemiz.</p>
+            </div>
+            
+            <!-- Featured Project Case Study -->
+            <div class="featured-case-study">
+                <div class="case-study-visual">
+                    <div class="case-study-img-frame">
+                        <img src="assets/portfolio_dadson.jpg" alt="Dadson Grup Web Tasarım Mockup" class="case-study-img">
+                        <div class="case-study-glow"></div>
+                    </div>
+                </div>
+                
+                <div class="case-study-details glass-card tilt-3d">
+                    <div class="case-badge" data-tilt-depth="15"><i class="fa-solid fa-star text-blue"></i> Öne Çıkan Proje</div>
+                    <h3 class="case-title" data-tilt-depth="25">Dadson Grup</h3>
+                    <span class="case-category">Kurumsal Web Tasarım / Yatırım &amp; Danışmanlık</span>
+                    <p class="case-desc">
+                        Yatırım, energy, turizm ve inşaat alanlarında faaliyet gösteren Dadson Grup için geliştirilen kurumsal web projesi. Şirketin prestijini yansıtacak minimalist, gold/koyu tonlarda lüks bir estetik tasarım geliştirilmiş, yüksek hız ve tam mobil uyumluluk altyapısı kurulmuştur.
+                    </p>
+                    
+                    <div class="case-stats" data-tilt-depth="15">
+                        <div class="stat-box">
+                            <span class="stat-num">98%</span>
+                            <span class="stat-label">Hız Skoru</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">Yönetilebilir</span>
+                            <span class="stat-label">Türkçe Panel</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">Tam</span>
+                            <span class="stat-label">SEO Altyapısı</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://www.dadsongrup.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary case-cta" data-tilt-depth="25">
+                        Web Sitesini Ziyaret Et <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Calculator Section -->
+    <section id="pricing" class="pricing-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Akıllı Fiyat Hesaplayıcı</h2>
+                <p class="section-subtitle">Web sitenizin özelliklerini seçin, sürpriz maliyetlerle karşılaşmadan tahmini fiyatı anında görün!</p>
+            </div>
+            
+            <div class="pricing-calculator-wrapper">
+                <div class="glass-card calculator-card">
+                    
+                    <!-- TOP: Dynamic Browser Preview Header -->
+                    <div class="calculator-preview-header">
+                        <div class="browser-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="browser-address">netvizyon.net/sizin-web-siteniz</div>
+                    </div>
+                    
+                    <!-- TOP: Dynamic Sliding Preview Window with Premium Generated Images -->
+                    <div class="calculator-preview-window" id="calc-preview-window">
+                        <!-- Slider Track -->
+                        <div class="preview-slider-track" id="preview-slider-track">
+                            <!-- Slide 1: Landing Page -->
+                            <div class="preview-slide">
+                                <img src="assets/preview_landing.jpg" alt="Landing Page Önizleme">
+                            </div>
+                            <!-- Slide 2: Corporate Site -->
+                            <div class="preview-slide">
+                                <img src="assets/preview_corporate.jpg" alt="Kurumsal Site Önizleme">
+                            </div>
+                            <!-- Slide 3: E-Commerce -->
+                            <div class="preview-slide">
+                                <img src="assets/preview_ecommerce.jpg" alt="E-Ticaret Site Önizleme">
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Feature Overlays -->
+                        <div class="preview-overlays">
+                            <!-- Lang switcher overlay -->
+                            <div class="preview-floating-badge badge-lang" id="preview-lang-addon">
+                                <i class="fa-solid fa-language"></i> Çoklu Dil Desteği Aktif
+                            </div>
+                            <!-- Speed optimization overlay -->
+                            <div class="preview-floating-badge badge-speed" id="preview-speed-addon">
+                                <i class="fa-solid fa-bolt"></i> ⚡ Hız Optimizasyonu (A+)
+                            </div>
+                            <!-- SEO overlay -->
+                            <div class="preview-floating-badge badge-seo" id="preview-seo-addon">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i> SEO Altyapısı Aktif
+                            </div>
+                            <!-- WhatsApp widget overlay -->
+                            <div class="preview-whatsapp-widget" id="preview-whatsapp-addon">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTTOM: Inputs and Result Grid -->
+                    <div class="calculator-controls-layout">
+                        <div class="calculator-inputs">
+                            <!-- Step 1: Site Type -->
+                            <div class="calc-group">
+                                <label class="calc-label"><i class="fa-solid fa-list-check icon-blue"></i> Site Türü Seçin</label>
+                                <div class="calc-options-grid">
+                                    <div class="calc-option active" data-type="landing" data-price="4500">
+                                        <i class="fa-solid fa-bullseye"></i>
+                                        <span>Landing Page</span>
+                                        <span class="option-base-price">₺4.500'den başlayan</span>
+                                    </div>
+                                    <div class="calc-option" data-type="corporate" data-price="6000">
+                                        <i class="fa-solid fa-building"></i>
+                                        <span>Kurumsal Site</span>
+                                        <span class="option-base-price">₺6.000'den başlayan</span>
+                                    </div>
+                                    <div class="calc-option" data-type="ecommerce" data-price="8000">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <span>E-Ticaret</span>
+                                        <span class="option-base-price">₺8.000'den başlayan</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Page Count -->
+                            <div class="calc-group" id="page-count-group">
+                                <label class="calc-label" for="page-range">
+                                    <i class="fa-solid fa-copy icon-blue"></i> Sayfa Sayısı: <span id="page-count-val">1</span> Sayfa
+                                </label>
+                                <div class="range-slider-wrapper">
+                                    <input type="range" id="page-range" min="1" max="15" value="1" class="calc-range">
+                                    <div class="range-labels">
+                                        <span>1</span>
+                                        <span>5</span>
+                                        <span>10</span>
+                                        <span>15+</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Addons -->
+                            <div class="calc-group">
+                                <label class="calc-label"><i class="fa-solid fa-puzzle-piece icon-blue"></i> Ekstra Özellikler</label>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-card">
+                                        <input type="checkbox" class="calc-addon" data-price="750" value="seo">
+                                        <span class="checkbox-custom"></span>
+                                        <div class="checkbox-text">
+                                            <span class="addon-title">Gelişmiş SEO Paketi (+₺750)</span>
+                                            <span class="addon-desc">Anahtar kelime araştırması ve teknik site haritaları.</span>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="checkbox-card">
+                                        <input type="checkbox" class="calc-addon" data-price="1000" value="multilang">
+                                        <span class="checkbox-custom"></span>
+                                        <div class="checkbox-text">
+                                            <span class="addon-title">Çoklu Dil Desteği (+₺1.000)</span>
+                                            <span class="addon-desc">İngilizce veya diğer diller için altyapı kurulumu.</span>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="checkbox-card">
+                                        <input type="checkbox" class="calc-addon" data-price="500" value="whatsapp">
+                                        <span class="checkbox-custom"></span>
+                                        <div class="checkbox-text">
+                                            <span class="addon-title">Hızlı WhatsApp Entegrasyonu (+₺500)</span>
+                                            <span class="addon-desc">Müşterilerinizin size doğrudan WhatsApp'tan yazması için buton.</span>
+                                        </div>
+                                    </label>
+
+                                    <label class="checkbox-card">
+                                        <input type="checkbox" class="calc-addon" data-price="800" value="speed">
+                                        <span class="checkbox-custom"></span>
+                                        <div class="checkbox-text">
+                                            <span class="addon-title">Ekstra Hız Optimizasyonu (+₺800)</span>
+                                            <span class="addon-desc">A+ PageSpeed skorları ve anında yüklenme.</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Result Side -->
+                        <div class="calculator-result">
+                            <div class="result-header">Tahmini Proje Bedeli</div>
+                            <div class="result-price" id="calc-price-display">₺4.500</div>
+                            <div class="price-notice">* Sunucu (hosting) ve domain (alan adı) 1 yıllık fiyata DAHİLDİR. <span class="signature-text" style="font-size: 1.25rem; color: #ffd700; margin-left: 6px; display: inline-block; transform: rotate(-2deg);">Sürpriz ücret yok!</span></div>
+                            
+                            <div class="result-summary">
+                                <h4>Paket İçeriği:</h4>
+                                <ul class="summary-list" id="calc-summary-list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Landing Page Kurulumu</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Mobil Uyumlu Arayüz</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Ücretsiz SSL Sertifikası</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> 1 Yıllık Ücretsiz Hosting</li>
+                                </ul>
+                            </div>
+                            
+                            <button class="btn btn-primary btn-block" id="calc-cta-btn">Bu Paket İçin Teklif Al</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+                <p class="section-subtitle">Net Vizyon ile çalışmaya başlamadan önce aklınıza takılabilecek soruların cevapları.</p>
+            </div>
+            
+            <div class="faq-accordion-wrapper">
+                <!-- FAQ 1 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Web sitem ne kadar sürede tamamlanır?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Web sitenizin teslim süresi seçtiğiniz pakete göre değişir. Genellikle Landing Page (Tek Sayfa) projeleri 3-5 iş günü, Kurumsal siteler 7-10 iş günü, E-Ticaret projeleri ise 10-15 iş günü içerisinde tamamlanarak yayına alınır.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Fiyatlarınız neden bu kadar uygun? Kaliteden ödün veriliyor mu?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Net Vizyon olarak amacımız, yeni kurulan veya küçük/orta ölçekli işletmelerin yüksek maliyetler altında ezilmeden dijitalleşmesini sağlamaktır. Kendi geliştirdiğimiz optimize edilmiş kod şablonlarını ve verimli çalışma süreçlerini kullandığımız için kaliteden ödün vermeden, gereksiz ajans komisyonlarını ortadan kaldırarak uygun fiyat sunabiliyoruz.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Domain ve Hosting (Sunucu) ücretleri fiyata dahil mi?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Evet! Net Vizyon'dan alacağınız tüm paketlerde ilk 1 yıllık .com veya .com.tr alan adı (domain) kaydı ve yüksek hızlı SSD sunucu (hosting) hizmeti ücretsiz olarak fiyata dahildir. Sonraki yıllarda sadece standart yenileme bedelleri alınır, ekstra gizli bir maliyet çıkmaz.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Sitem yayınlandıktan sonra değişiklik yapabilir miyim?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kesinlikle. Sitenizi teslim ederken kullanımı son derece kolay, Türkçe bir yönetim paneli entegre ediyoruz. Bu panel üzerinden kod bilmenize gerek kalmadan içeriklerinizi, ürünlerinizi, resimlerinizi ve metinlerinizi dilediğiniz zaman güncelleyebilirsiniz. Ayrıca teslimat sonrasında 1 ay boyunca teknik destek sağlıyoruz.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Arama motorlarında (Google) bulunabilecek miyim?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sitenizin kod yapısını tamamen Google dostu ve SEO (Arama Motoru Optimizasyonu) uyumlu şekilde kodluyoruz. Site haritanız oluşturulur ve Google Search Console kaydınız ücretsiz yapılır. Bu sayede siteniz arama motorları tarafından hızlıca dizine eklenir ve bulunabilir hale gelir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">İletişime Geçin</h2>
+                <p class="section-subtitle">Bizimle iletişime geçerek aklınızdaki projeyi anlatın, dijital dünyadaki yerinizi hemen alın.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Contact Info: INSTAGRAM & PHONE CARD -->
+                <div class="contact-info-wrapper">
+                    <div class="glass-card contact-info-card instagram-only-card tilt-3d">
+                        <div class="instagram-icon-wrapper" data-tilt-depth="30" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 0 20px rgba(0, 98, 255, 0.15);">
+                            <img src="assets/favicon.png" alt="Net Vizyon" style="width: 44px; height: 44px; object-fit: contain;">
+                        </div>
+                        <h3 data-tilt-depth="20">Bize <span class="signature-text" style="font-size: 2.2rem; color: var(--blue-primary); display: inline-block; vertical-align: middle; margin-left: 4px;">Ulaşın</span></h3>
+                        <p class="info-tagline">Projeniz için instagram, telefon, WhatsApp veya e-posta kanalları üzerinden dilediğiniz an iletişime geçebilirsiniz.</p>
+                        
+                        <div class="instagram-handle-box" data-tilt-depth="15">
+                            <i class="fa-solid fa-at text-blue"></i>
+                            <strong>net_vizyon</strong>
+                        </div>
+                        
+                        <a href="https://www.instagram.com/net_vizyon/" target="_blank" rel="noopener noreferrer" class="btn btn-primary instagram-btn" data-tilt-depth="25">
+                            <i class="fa-brands fa-instagram"></i> Bizi Instagram'da Takip Edin
+                        </a>
+
+                        <div class="contact-divider-text">veya doğrudan ulaşın</div>
+
+                        <!-- Phone & Email Section -->
+                        <div class="phone-contact-box">
+                            <a href="tel:905010695162" class="phone-link">
+                                <i class="fa-solid fa-phone-flip text-blue"></i>
+                                <span>+90 501 069 51 62</span>
+                            </a>
+                            <a href="https://wa.me/905010695162" target="_blank" rel="noopener noreferrer" class="whatsapp-text-btn" style="margin-bottom: 5px;">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Yazın
+                            </a>
+                            <a href="mailto:info@netvizyon.org" class="email-link">
+                                <i class="fa-solid fa-envelope text-blue"></i>
+                                <span>info@netvizyon.org</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <div class="glass-card form-card tilt-3d" data-tilt-max="5">
+                        <h3 data-tilt-depth="20">Hızlı Teklif Formu</h3>
+                        <form id="quote-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="form-name">Adınız Soyadınız *</label>
+                                    <input type="text" id="form-name" required placeholder="Örn: Ahmet Yılmaz">
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-phone">Telefon Numaranız *</label>
+                                    <input type="tel" id="form-phone" required placeholder="Örn: 0555 123 45 67">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form-email">E-Posta Adresiniz</label>
+                                <input type="email" id="form-email" placeholder="Örn: ahmet@sirketiniz.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form-subject">Talep Ettiğiniz Hizmet</label>
+                                <select id="form-subject">
+                                    <option value="landing">Landing Page / Tek Sayfa Site</option>
+                                    <option value="corporate">Kurumsal Web Sitesi</option>
+                                    <option value="ecommerce">E-Ticaret Sitesi</option>
+                                    <option value="custom">Özel Tasarım / Diğer</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form-message">Mesajınız / Proje Detayları *</label>
+                                <textarea id="form-message" required rows="5" placeholder="Projeniz hakkında kısa bilgi verin..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Teklif İsteğini Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <img src="assets/logo.png" alt="Net Vizyon Logo" class="footer-logo">
+                <p>İşletmeler için yüksek kaliteli, hızlı ve en uygun maliyetli dijital çözümler sunar.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Hızlı Menü</h4>
+                <a href="#home">Ana Sayfa</a>
+                <a href="#services">Hizmetler</a>
+                <a href="#portfolio">Portfolyo</a>
+                <a href="#pricing">Fiyat Hesaplama</a>
+                <a href="#contact">İletişim</a>
+            </div>
+            
+            <div class="footer-social">
+                <h4>Bizi Takip Edin</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/net_vizyon/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Net Vizyon. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Supabase JS Client CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Three.js Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- 3D Interactive Scripts -->
+    <script src="js/three-bg.js"></script>
+    <script src="js/tilt.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
