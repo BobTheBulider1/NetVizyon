@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetVizyon | Yönetim Paneli</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="https://www.netvizyon.org/favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="https://www.netvizyon.org/favicon.png">
+    
+    <!-- Google Fonts - Custom Font System (Plus Jakarta Sans, Space Mono & Caveat Signature) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #08080a;
+            --bg-dark-accent: #0f0f13;
+            --glass-bg: rgba(8, 9, 16, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.07);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            
+            --blue-primary: #0062ff;
+            --blue-glow: rgba(0, 98, 255, 0.35);
+            --blue-gradient: linear-gradient(135deg, #00d2ff 0%, #0062ff 100%);
+            
+            --text-white: #ffffff;
+            --text-light-gray: #e4e4e9;
+            --text-gray: #888896;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --border-radius-lg: 24px;
+            --border-radius-md: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Background grid overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .glow-sphere {
+            display: none;
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -3;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .sphere-1 {
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 98, 255, 0.25) 0%, rgba(0, 98, 255, 0) 70%);
+        }
+
+        .sphere-2 {
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, rgba(0, 210, 255, 0) 70%);
+        }
+
+        /* Glassmorphism Containers */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(35px) saturate(180%);
+            -webkit-backdrop-filter: blur(35px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-smooth);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-smooth);
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--blue-primary);
+            color: var(--text-white);
+            box-shadow: 0 4px 15px var(--blue-glow);
+        }
+
+        .btn-primary:hover {
+            background: #0052cc;
+            box-shadow: 0 6px 20px rgba(0, 98, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ff3b30;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e0241b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-white);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* Login Screen */
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 40px;
+            text-align: center;
+        }
+
+        .login-logo {
+            height: 72px;
+            margin-bottom: 24px;
+        }
+
+        .login-card h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .login-subtitle {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 36px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light-gray);
+        }
+
+        .form-group input, .form-group select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 14px 18px;
+            color: var(--text-white);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            width: 100%;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 10px rgba(0, 98, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Dashboard Container */
+        .dashboard-wrapper {
+            display: none; /* Shown after auth */
+            padding: 40px 24px 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .brand-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .dashboard-logo {
+            height: 60px;
+        }
+
+        .brand-info h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        /* Stat Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 98, 255, 0.1);
+            border: 1px solid rgba(0, 98, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--blue-primary);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-val {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        /* Filter Controls */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 24px;
+            padding: 16px 24px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 8px 20px;
+            flex-grow: 1;
+            max-width: 400px;
+            gap: 12px;
+        }
+
+        .search-box i {
+            color: var(--text-gray);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .filters-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .filter-select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 8px 20px;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Submissions Table / Cards */
+        .submissions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .submission-row {
+            padding: 24px 30px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1fr 1.2fr 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .submission-row:hover {
+            border-color: var(--glass-border-light);
+            box-shadow: 0 10px 30px rgba(0, 98, 255, 0.05);
+        }
+
+        .sub-name {
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .sub-phone, .sub-email {
+            font-size: 0.88rem;
+        }
+
+        .sub-subject {
+            font-size: 0.88rem;
+            color: var(--blue-primary);
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .sub-subject.landing { color: #00d2ff; }
+        .sub-subject.corporate { color: #0062ff; }
+        .sub-subject.ecommerce { color: #a61278; }
+
+        /* Custom Status badge select option */
+        .status-select {
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition-smooth);
+            width: fit-content;
+        }
+
+        .status-select.status-bekliyor {
+            color: #ffcc00;
+            border-color: rgba(255, 204, 0, 0.3);
+            background: rgba(255, 204, 0, 0.05);
+        }
+
+        .status-select.status-arandi {
+            color: #00d2ff;
+            border-color: rgba(0, 210, 255, 0.3);
+            background: rgba(0, 210, 255, 0.05);
+        }
+
+        .status-select.status-tamamlandi {
+            color: #25d366;
+            border-color: rgba(37, 211, 102, 0.3);
+            background: rgba(37, 211, 102, 0.05);
+        }
+
+        .sub-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Message details foldout */
+        .submission-card-expandable {
+            cursor: pointer;
+        }
+
+        .submission-details-drawer {
+            grid-column: span 6;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 16px;
+            padding-top: 16px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .submission-row.expanded .submission-details-drawer {
+            display: block;
+        }
+
+        .details-heading {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details-content {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--glass-border);
+            padding: 16px;
+            border-radius: var(--border-radius-md);
+            font-size: 0.95rem;
+            color: var(--text-light-gray);
+            white-space: pre-line;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .table-empty-state {
+            padding: 60px;
+            text-align: center;
+            color: var(--text-gray);
+        }
+
+        .table-empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--blue-primary);
+            opacity: 0.5;
+        }
+
+        /* Header bar in Table labels */
+        .table-header-labels {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 14px 30px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1fr 1.2fr 1fr;
+            gap: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        /* Toast notifications container */
+        #toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            min-width: 320px;
+            padding: 16px 20px;
+            border-radius: var(--border-radius-md);
+            background: rgba(8, 9, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--blue-primary);
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 98, 255, 0.15);
+            transform: translateX(120%);
+            opacity: 0;
+            animation: slideInToast 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideInToast {
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.hide {
+            animation: slideOutToast 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideOutToast {
+            to { transform: translateX(120%); opacity: 0; }
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        .toast-success i { color: #25d366; }
+        .toast-error i { color: #ff3b30; }
+        .toast-error { border-color: #ff3b30; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .table-header-labels {
+                display: none;
+            }
+            .submission-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .submission-details-drawer {
+                grid-column: span 2;
+            }
+            .sub-actions {
+                grid-column: span 2;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .dashboard-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-wrapper {
+                padding: 24px 12px 60px;
+            }
+            
+            .brand-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .brand-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .user-menu {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .user-menu .btn {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .stat-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.1rem;
+            }
+
+            .stat-val {
+                font-size: 1.4rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            /* Card-based layout for rows */
+            .submission-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 20px 16px;
+            }
+
+            .sub-name {
+                font-size: 1.05rem;
+                grid-row: 1;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                padding-bottom: 8px;
+            }
+
+            .sub-phone {
+                grid-row: 3;
+                font-size: 0.85rem;
+            }
+
+            .sub-email {
+                grid-row: 4;
+                font-size: 0.85rem;
+                word-break: break-all;
+            }
+
+            .sub-subject {
+                grid-row: 2;
+                font-size: 0.85rem;
+            }
+
+            /* Custom styling for status dropdown container on mobile */
+            .submission-row > div:nth-child(5) {
+                grid-row: 5;
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+                padding-top: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .submission-row > div:nth-child(5)::before {
+                content: 'İşlem Durumu:';
+                font-size: 0.8rem;
+                color: var(--text-gray);
+                font-weight: 500;
+            }
+
+            .sub-actions {
+                grid-row: 6;
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-top: 4px;
+            }
+
+            .sub-actions .btn {
+                width: 100%;
+            }
+
+            .submission-details-drawer {
+                grid-column: 1 / -1;
+                grid-row: 7;
+            }
+
+            .submission-details-drawer > div:first-child {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 12px !important;
+            }
+
+            .submission-details-drawer > div:first-child > div:last-child {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+                width: 100%;
+            }
+
+            .submission-details-drawer > div:first-child > div:last-child > div {
+                justify-content: center !important;
+                width: 100%;
+            }
+
+            .submission-details-drawer > div:first-child > div:last-child > a {
+                justify-content: center !important;
+                width: 100%;
+                height: 36px !important;
+                font-size: 0.85rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-overlay"></div>
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+
+    <!-- 1. LOGIN CONTAINER -->
+    <div class="login-wrapper" id="login-container">
+        <div class="glass-card login-card">
+            <img src="assets/logo.png" alt="NetVizyon Logo" class="login-logo">
+            <h2>Yönetici Girişi</h2>
+            <p class="login-subtitle">NetVizyon Portfolyo Yönetim Paneli</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">E-Posta Adresi</label>
+                    <input type="email" id="login-email" required placeholder="admin@netvizyon.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Şifre</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" style="width: 100%; padding: 14px;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Giriş Yap
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. DASHBOARD CONTAINER -->
+    <div class="dashboard-wrapper" id="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="brand-info">
+                <img src="assets/logo.png" alt="NetVizyon Logo" class="dashboard-logo">
+                <h1>Yönetim Paneli</h1>
+            </div>
+            
+            <div class="user-menu">
+                <button class="btn btn-secondary btn-sm" id="sound-test-btn" style="margin-right: 8px; border-color: rgba(0, 98, 255, 0.35); background: rgba(0, 98, 255, 0.05);" title="Bildirim Sesini Test Et">
+                    <i class="fa-solid fa-volume-high" style="color: #00d2ff;"></i> Ses Testi
+                </button>
+                <span class="user-email" id="user-display-email">admin@netvizyon.com</span>
+                <button class="btn btn-secondary btn-sm" id="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div class="glass-card stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-inbox"></i></div>
+                <div class="stat-info">
+                    <span class="stat-val" id="stat-total">0</span>
+                    <span class="stat-label">Toplam Başvuru</span>
+                </div>
+            </div>
+            
+            <div class="glass-card stat-card" style="border-color: rgba(255, 204, 0, 0.25);">
+                <div class="stat-icon" style="color: #ffcc00; background: rgba(255, 204, 0, 0.08);"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-info">
+                    <span class="stat-val" style="color: #ffcc00;" id="stat-pending">0</span>
+                    <span class="stat-label">Bekleyen</span>
+                </div>
+            </div>
+            
+            <div class="glass-card stat-card" style="border-color: rgba(0, 210, 255, 0.25);">
+                <div class="stat-icon" style="color: #00d2ff; background: rgba(0, 210, 255, 0.08);"><i class="fa-solid fa-phone-volume"></i></div>
+                <div class="stat-info">
+                    <span class="stat-val" style="color: #00d2ff;" id="stat-progress">0</span>
+                    <span class="stat-label">Arandı / Süreçte</span>
+                </div>
+            </div>
+            
+            <div class="glass-card stat-card" style="border-color: rgba(37, 211, 102, 0.25);">
+                <div class="stat-icon" style="color: #25d366; background: rgba(37, 211, 102, 0.08);"><i class="fa-solid fa-check-double"></i></div>
+                <div class="stat-info">
+                    <span class="stat-val" style="color: #25d366;" id="stat-completed">0</span>
+                    <span class="stat-label">Tamamlanan</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Bar -->
+        <section class="glass-card filter-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="İsim, telefon veya mesaj içeriği ara...">
+            </div>
+            
+            <div class="filters-group">
+                <select class="filter-select" id="filter-service">
+                    <option value="all">Tüm Hizmetler</option>
+                    <option value="landing">Landing Page</option>
+                    <option value="corporate">Kurumsal Site</option>
+                    <option value="ecommerce">E-Ticaret</option>
+                    <option value="custom">Diğer / Özel</option>
+                </select>
+                
+                <select class="filter-select" id="filter-status">
+                    <option value="all">Tüm Durumlar</option>
+                    <option value="Bekliyor">Bekliyor</option>
+                    <option value="Arandı">Arandı</option>
+                    <option value="Tamamlandı">Tamamlandı</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Table Labels (Desktop) -->
+        <div class="table-header-labels">
+            <span>Müşteri Adı</span>
+            <span>Telefon</span>
+            <span>E-Posta</span>
+            <span>Hizmet Türü</span>
+            <span>Durum</span>
+            <span style="text-align: right; padding-right: 20px;">Aksiyonlar</span>
+        </div>
+
+        <!-- Submissions Container -->
+        <main class="submissions-container" id="submissions-list">
+            <!-- Dynamically populated rows -->
+            <div class="table-empty-state glass-card">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <p>Başvurular yükleniyor...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Notification Sound Element -->
+    <audio id="notification-sound" src="assets/notification.mp3" preload="auto"></audio>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://cpjhzfsnnhljkyfjjnyj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwamh6ZnNubmhsamt5ZmpqbnlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTYzMjQsImV4cCI6MjA5OTE5MjMyNH0.dazh3RVJPlgaHdAUbrGebVYqDRpJC4sLsz-fBZElfg4';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // DOM elements
+        const loginContainer = document.getElementById('login-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const loginForm = document.getElementById('login-form');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userDisplayEmail = document.getElementById('user-display-email');
+        
+        const statTotal = document.getElementById('stat-total');
+        const statPending = document.getElementById('stat-pending');
+        const statProgress = document.getElementById('stat-progress');
+        const statCompleted = document.getElementById('stat-completed');
+        
+        const searchInput = document.getElementById('search-input');
+        const filterService = document.getElementById('filter-service');
+        const filterStatus = document.getElementById('filter-status');
+        const submissionsList = document.getElementById('submissions-list');
+        const toastContainer = document.getElementById('toast-container');
+
+        const soundTestBtn = document.getElementById('sound-test-btn');
+        const notificationAudio = document.getElementById('notification-sound');
+        let allSubmissions = [];
+        let realtimeChannel = null;
+        let audioCtx = null;
+
+        // Initialize or resume the shared AudioContext (for synthetic chime)
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    audioCtx = new AudioContext();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // Auto-unlock AudioContext and HTML5 Audio on first user interaction on the page
+        function unlockAudio() {
+            // Unlock AudioContext
+            initAudioContext();
+            
+            // Unlock HTML5 Audio element
+            if (notificationAudio) {
+                const playPromise = notificationAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        notificationAudio.pause();
+                        notificationAudio.currentTime = 0;
+                        console.log("HTML5 notification audio unlocked successfully!");
+                    }).catch(err => {
+                        console.log("HTML5 audio unlock play/pause rejected:", err);
+                    });
+                }
+            }
+            
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+        }
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
+        document.addEventListener('touchstart', unlockAudio);
+
+        // Play premium notification sound (first tries HTML5 Audio file, falls back to Web Audio API synthesis)
+        function playNotificationSound() {
+            console.log("playNotificationSound triggered. notificationAudio:", !!notificationAudio);
+            // 1. Try HTML5 Audio file
+            if (notificationAudio) {
+                notificationAudio.currentTime = 0;
+                notificationAudio.play()
+                    .then(() => {
+                        console.log("Notification audio file played successfully.");
+                    })
+                    .catch(err => {
+                        console.warn("Audio file play failed, trying synthetic Web Audio fallback:", err);
+                        // Show warning toast so user knows browser blocked it
+                        showToast(`Ses uyarısı tarayıcı tarafından engellendi. Lütfen sayfaya tıklayın. (${err.message})`, 'error');
+                        playSyntheticChime();
+                    });
+            } else {
+                playSyntheticChime();
+            }
+        }
+
+        // Synthesize backup chime sound using Web Audio API
+        function playSyntheticChime() {
+            try {
+                console.log("Attempting Web Audio API synthesis...");
+                const ctx = initAudioContext();
+                if (!ctx) {
+                    console.warn("AudioContext is not supported on this browser.");
+                    return;
+                }
+                
+                // Note 1: C5 (523.25 Hz)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(523.25, ctx.currentTime);
+                
+                gain1.gain.setValueAtTime(0, ctx.currentTime);
+                gain1.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+                gain1.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+                
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(ctx.currentTime);
+                osc1.stop(ctx.currentTime + 0.4);
+                
+                // Note 2: E5 (659.25 Hz)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
+                
+                gain2.gain.setValueAtTime(0, ctx.currentTime + 0.12);
+                gain2.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.17);
+                gain2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
+                
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(ctx.currentTime + 0.12);
+                osc2.stop(ctx.currentTime + 0.65);
+                console.log("Web Audio API synthesis completed successfully.");
+            } catch (err) {
+                console.error("Synthetic Audio playback error:", err);
+                showToast(`Ses sentezleme hatası: ${err.message}`, 'error');
+            }
+        }
+
+        // Sound test event listener
+        if (soundTestBtn) {
+            soundTestBtn.addEventListener('click', () => {
+                playNotificationSound();
+                showToast('Bildirim sesi test ediliyor...', 'success');
+            });
+        }
+
+        // 1. Toast notifications
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+            
+            toast.innerHTML = `
+                <i class="fa-solid ${icon}"></i>
+                <span>${message}</span>
+            `;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('hide');
+                toast.addEventListener('animationend', () => toast.remove());
+            }, 4000);
+        }
+
+        // 2. Auth state checks
+        async function checkSession() {
+            const { data: { session }, error } = await supabaseClient.auth.getSession();
+            if (session) {
+                showDashboard(session.user);
+            } else {
+                showLogin();
+            }
+        }
+
+        function showDashboard(user) {
+            loginContainer.style.display = 'none';
+            dashboardContainer.style.display = 'block';
+            userDisplayEmail.textContent = user.email;
+            fetchSubmissions();
+            initRealtimeSubscription();
+        }
+
+        function showLogin() {
+            loginContainer.style.display = 'flex';
+            dashboardContainer.style.display = 'none';
+            if (realtimeChannel) {
+                supabaseClient.removeChannel(realtimeChannel);
+                realtimeChannel = null;
+            }
+        }
+
+        // Realtime Subscription Helper
+        function initRealtimeSubscription() {
+            if (realtimeChannel) return; // avoid duplicate channels
+            
+            realtimeChannel = supabaseClient
+                .channel('realtime-contact-submissions')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'INSERT',
+                        schema: 'public',
+                        table: 'contact_submissions'
+                    },
+                    (payload) => {
+                        console.log('Realtime insert payload:', payload);
+                        const newRow = payload.new;
+                        
+                        // Check if item already exists locally
+                        if (!allSubmissions.some(s => s.id === newRow.id)) {
+                            // Visual flash / toast feedback (Slides in from the right)
+                            showToast(`Yeni Teklif Talebi: ${newRow.name} tarafından!`, 'success');
+                            
+                            // Insert at the beginning of list
+                            allSubmissions.unshift(newRow);
+                            updateStats();
+                            renderSubmissions();
+                        }
+                    }
+                )
+                .subscribe((status) => {
+                    console.log('Realtime subscription status:', status);
+                });
+        }
+
+        // 3. Login form event listener
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value;
+
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Giriş Yapılıyor...';
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) {
+                showToast(error.message === 'Invalid login credentials' ? 'Hatalı e-posta adresi veya şifre.' : error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Giriş Yap';
+            } else {
+                showToast('Başarıyla giriş yapıldı.');
+                showDashboard(data.user);
+            }
+        });
+
+        // 4. Logout event listener
+        logoutBtn.addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            showToast('Çıkış yapıldı.');
+            showLogin();
+        });
+
+        // 5. Fetch submissions
+        async function fetchSubmissions() {
+            submissionsList.innerHTML = `
+                <div class="table-empty-state glass-card">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    <p>Başvurular yükleniyor...</p>
+                </div>
+            `;
+
+            const { data, error } = await supabaseClient
+                .from('contact_submissions')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error(error);
+                showToast('Veriler yüklenirken hata oluştu.', 'error');
+                submissionsList.innerHTML = `
+                    <div class="table-empty-state glass-card">
+                        <i class="fa-solid fa-circle-exclamation" style="color: #ff3b30;"></i>
+                        <p>Teklifler veritabanından çekilemedi.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            allSubmissions = data || [];
+            updateStats();
+            renderSubmissions();
+        }
+
+        // 6. Update Stats Section
+        function updateStats() {
+            statTotal.textContent = allSubmissions.length;
+            statPending.textContent = allSubmissions.filter(s => s.status === 'Bekliyor').length;
+            statProgress.textContent = allSubmissions.filter(s => s.status === 'Arandı').length;
+            statCompleted.textContent = allSubmissions.filter(s => s.status === 'Tamamlandı').length;
+        }
+
+        // 7. Render list items
+        function renderSubmissions() {
+            const query = searchInput.value.toLowerCase().trim();
+            const serviceFilter = filterService.value;
+            const statusFilter = filterStatus.value;
+
+            // Apply filters
+            const filtered = allSubmissions.filter(item => {
+                const matchesSearch = 
+                    item.name.toLowerCase().includes(query) || 
+                    item.phone.includes(query) || 
+                    (item.email && item.email.toLowerCase().includes(query)) ||
+                    item.message.toLowerCase().includes(query);
+                
+                const matchesService = serviceFilter === 'all' || item.subject === serviceFilter;
+                const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+
+                return matchesSearch && matchesService && matchesStatus;
+            });
+
+            if (filtered.length === 0) {
+                submissionsList.innerHTML = `
+                    <div class="table-empty-state glass-card">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>Kriterlere uygun başvuru bulunamadı.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            submissionsList.innerHTML = filtered.map(item => {
+                const date = new Date(item.created_at).toLocaleDateString('tr-TR', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                let subjectText = 'Diğer / Özel';
+                if (item.subject === 'landing') subjectText = 'Landing Page';
+                else if (item.subject === 'corporate') subjectText = 'Kurumsal Site';
+                else if (item.subject === 'ecommerce') subjectText = 'E-Ticaret';
+
+                // Extract marketing consent status from the message field
+                const hasMarketingConsent = item.message && item.message.includes('[Pazarlama İzni: KABUL ETMİŞTİR]');
+                const cleanMessage = item.message 
+                    ? item.message.replace(/\n\n---\n\[Pazarlama İzni: (KABUL ETMİŞTİR|KABUL ETMEDİ)\]/, '') 
+                    : '';
+
+                return `
+                    <div class="glass-card submission-row" id="row-${item.id}">
+                        <div class="sub-name submission-card-expandable" onclick="toggleRowExpand('${item.id}')">
+                            <i class="fa-solid fa-chevron-right chevron-icon" style="margin-right: 8px; font-size: 0.75rem; color: var(--text-gray); transition: var(--transition-smooth);"></i>
+                            ${escapeHtml(item.name)}
+                        </div>
+                        <div class="sub-phone submission-card-expandable" onclick="toggleRowExpand('${item.id}')">
+                            <i class="fa-solid fa-phone" style="font-size: 0.8rem; color: var(--text-gray); margin-right: 6px;"></i>${escapeHtml(item.phone)}
+                        </div>
+                        <div class="sub-email submission-card-expandable" onclick="toggleRowExpand('${item.id}')">
+                            <i class="fa-solid fa-envelope" style="font-size: 0.8rem; color: var(--text-gray); margin-right: 6px;"></i>${item.email ? escapeHtml(item.email) : '-'}
+                        </div>
+                        <div class="sub-subject ${item.subject || 'custom'} submission-card-expandable" onclick="toggleRowExpand('${item.id}')">
+                            ${subjectText}
+                        </div>
+                        <div>
+                            <select class="status-select status-${item.status.toLowerCase().replace('ı', 'i')}" onchange="updateSubmissionStatus('${item.id}', this)">
+                                <option value="Bekliyor" ${item.status === 'Bekliyor' ? 'selected' : ''}>Bekliyor</option>
+                                <option value="Arandı" ${item.status === 'Arandı' ? 'selected' : ''}>Arandı</option>
+                                <option value="Tamamlandı" ${item.status === 'Tamamlandı' ? 'selected' : ''}>Tamamlandı</option>
+                            </select>
+                        </div>
+                        <div class="sub-actions">
+                            <button class="btn btn-danger btn-sm" onclick="deleteSubmission('${item.id}')">
+                                <i class="fa-solid fa-trash-can"></i> Sil
+                            </button>
+                        </div>
+                        
+                        <!-- Foldout details drawer -->
+                        <div class="submission-details-drawer">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                                <div class="details-heading">Başvuru Tarihi: ${date}</div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; background: ${hasMarketingConsent ? 'rgba(37, 211, 102, 0.06)' : 'rgba(255, 59, 48, 0.04)'}; border: 1px solid ${hasMarketingConsent ? 'rgba(37, 211, 102, 0.2)' : 'rgba(255, 59, 48, 0.15)'}; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; color: ${hasMarketingConsent ? '#25d366' : '#ff3b30'};">
+                                        <i class="fa-solid ${hasMarketingConsent ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+                                        Pazarlama İzni: ${hasMarketingConsent ? 'Kabul Etti' : 'Reddetti'}
+                                    </div>
+                                    <a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="color: #25d366; border-color: rgba(37, 211, 102, 0.2); background: rgba(37, 211, 102, 0.02); height: 28px; padding: 0 12px; font-size: 0.75rem;">
+                                        <i class="fa-brands fa-whatsapp"></i> WhatsApp Sohbeti
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="details-heading">Mesaj ve Teklif Talebi İçeriği</div>
+                            <div class="details-content">${escapeHtml(cleanMessage)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 8. Toggle row expand
+        window.toggleRowExpand = function(id) {
+            const row = document.getElementById(`row-${id}`);
+            const chevron = row.querySelector('.chevron-icon');
+            
+            if (row.classList.contains('expanded')) {
+                row.classList.remove('expanded');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            } else {
+                row.classList.add('expanded');
+                if (chevron) chevron.style.transform = 'rotate(90deg)';
+            }
+        }
+
+        // 9. Update submission status in Supabase
+        window.updateSubmissionStatus = async function(id, selectElement) {
+            const newStatus = selectElement.value;
+            
+            // Visual feedback update
+            selectElement.className = `status-select status-${newStatus.toLowerCase().replace('ı', 'i')}`;
+
+            const { error } = await supabaseClient
+                .from('contact_submissions')
+                .update({ status: newStatus })
+                .eq('id', id);
+
+            if (error) {
+                console.error(error);
+                showToast('Durum güncellenirken hata oluştu.', 'error');
+                fetchSubmissions(); // Revert back
+            } else {
+                showToast('Teklif durumu başarıyla güncellendi.');
+                
+                // Update local data status
+                const itemIndex = allSubmissions.findIndex(s => s.id === id);
+                if (itemIndex > -1) {
+                    allSubmissions[itemIndex].status = newStatus;
+                }
+                updateStats();
+            }
+        }
+
+        // 10. Delete submission row
+        window.deleteSubmission = async function(id) {
+            if (!confirm('Bu teklif başvurusunu kalıcı olarak silmek istediğinizden emin misiniz?')) {
+                return;
+            }
+
+            const { error } = await supabaseClient
+                .from('contact_submissions')
+                .delete()
+                .eq('id', id);
+
+            if (error) {
+                console.error(error);
+                showToast('Kayıt silinirken hata oluştu.', 'error');
+            } else {
+                showToast('Kayıt başarıyla silindi.');
+                
+                // Remove locally and re-render
+                allSubmissions = allSubmissions.filter(s => s.id !== id);
+                updateStats();
+                renderSubmissions();
+            }
+        }
+
+        // 11. Helper to escape html to prevent injection
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // 12. Search & filter listeners
+        searchInput.addEventListener('input', renderSubmissions);
+        filterService.addEventListener('change', renderSubmissions);
+        filterStatus.addEventListener('change', renderSubmissions);
+
+        // 13. Listen for session changes
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                showDashboard(session.user);
+            } else if (event === 'SIGNED_OUT') {
+                showLogin();
+            }
+        });
+
+        // Run session check on load
+        checkSession();
+    </script>
+</body>
+</html>
