@@ -2719,6 +2719,51 @@ button, input, select, textarea {
     .social-icons {
         justify-content: center;
     }
+
+    /* Center contact cards and prevent margins imbalance on mobile */
+    .contact-section .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .contact-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        gap: 30px !important;
+        box-sizing: border-box !important;
+    }
+
+    .contact-info-wrapper,
+    .contact-form-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .contact-info-card,
+    .instagram-only-card,
+    .form-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
 }
 
 /* Custom Interactive Cursor for PC Desktop view */
