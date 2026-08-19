@@ -476,8 +476,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const quoteForm = document.getElementById('quote-form');
 
     if (quoteForm) {
+        const COOLDOWN_TIME = 2 * 60 * 1000; // 2 minutes in ms
+        let cooldownInterval = null;
+
+        const startCooldownTimer = (remainingMs) => {
+            const submitBtn = quoteForm.querySelector('button[type="submit"]');
+            if (!submitBtn) return;
+            
+            submitBtn.disabled = true;
+            const endTime = Date.now() + remainingMs;
+            
+            if (cooldownInterval) clearInterval(cooldownInterval);
+            
+            cooldownInterval = setInterval(() => {
+                const now = Date.now();
+                const left = endTime - now;
+                
+                if (left <= 0) {
+                    clearInterval(cooldownInterval);
+                    cooldownInterval = null;
+                    submitBtn.disabled = false;
+                    submitBtn.setAttribute('data-i18n', 'contact.form.submit');
+                    if (window.I18n && typeof window.I18n.translate === 'function') {
+                        submitBtn.textContent = window.I18n.translate('contact.form.submit', window.I18n.currentLang || 'tr');
+                    } else {
+                        submitBtn.textContent = 'Teklif İsteğini Gönder';
+                    }
+                } else {
+                    const minutes = Math.floor(left / 60000);
+                    const seconds = Math.floor((left % 60000) / 1000);
+                    const timeStr = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    
+                    submitBtn.removeAttribute('data-i18n');
+                    const waitMsg = t('contact.form.wait') || 'Wait';
+                    submitBtn.textContent = `${waitMsg} (${timeStr})`;
+                }
+            }, 1000);
+        };
+
+        // Initialize cooldown on page load
+        const lastSubmissionTime = localStorage.getItem('lastFormSubmissionTime');
+        if (lastSubmissionTime) {
+            const elapsed = Date.now() - parseInt(lastSubmissionTime, 10);
+            if (elapsed < COOLDOWN_TIME) {
+                startCooldownTimer(COOLDOWN_TIME - elapsed);
+            }
+        }
+
         quoteForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Double check cooldown
+            const checkTime = localStorage.getItem('lastFormSubmissionTime');
+            if (checkTime) {
+                const elapsed = Date.now() - parseInt(checkTime, 10);
+                if (elapsed < COOLDOWN_TIME) {
+                    const remainingSeconds = Math.ceil((COOLDOWN_TIME - elapsed) / 1000);
+                    showToast(`${t('toast.err.cooldown')} (${remainingSeconds}s)`, 'error');
+                    return;
+                }
+            }
 
             const sanitizeInput = (val) => {
                 return val.replace(/<[^>]*>/g, '').trim();
@@ -605,13 +663,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (typeof grecaptcha !== 'undefined') {
                         grecaptcha.reset();
                     }
+                    // Start cooldown timer on success
+                    localStorage.setItem('lastFormSubmissionTime', Date.now().toString());
+                    startCooldownTimer(COOLDOWN_TIME);
                 }
             } catch (err) {
                 console.error('Submission error:', err);
                 showToast(t('toast.err.system'), 'error');
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
+                // If cooldown was started, keep it disabled
+                if (!cooldownInterval) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
             }
         });
     }

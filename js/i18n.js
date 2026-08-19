@@ -168,6 +168,7 @@
       'contact.form.message.ph': 'Projeniz hakkında kısa bilgi verin...',
       'contact.form.submit':     'Teklif İsteğini Gönder',
       'contact.form.sending':    'Gönderiliyor...',
+      'contact.form.wait':       'Bekleyin',
 
       'footer.tagline':   'İşletmeler için yüksek kaliteli, hızlı ve en uygun maliyetli dijital çözümler sunar.',
       'footer.menu':      'Hızlı Menü',
@@ -191,6 +192,7 @@
       'toast.err.supabase': 'Bağlantı hatası: Veritabanı kütüphanesi yüklenemedi.',
       'toast.err.submit':   'Form gönderilemedi. Lütfen daha sonra tekrar deneyin.',
       'toast.err.system':   'Sistem hatası oluştu. Lütfen tekrar deneyin.',
+      'toast.err.cooldown': 'Lütfen tekrar göndermeden önce bekleyin.',
 
       'a11y.menu.open':  'Menüyü Aç',
       'a11y.menu.close': 'Menüyü Kapat',
@@ -393,6 +395,7 @@
       'contact.form.message.ph': 'Give brief information about your project...',
       'contact.form.submit':     'Send Quote Request',
       'contact.form.sending':    'Sending...',
+      'contact.form.wait':       'Wait',
 
       'footer.tagline':   'High quality, fast and most affordable digital solutions for businesses.',
       'footer.menu':      'Quick Menu',
@@ -416,6 +419,7 @@
       'toast.err.supabase': 'Connection error: Database library could not be loaded.',
       'toast.err.submit':   'Form could not be submitted. Please try again later.',
       'toast.err.system':   'A system error occurred. Please try again.',
+      'toast.err.cooldown': 'Please wait before submitting again.',
 
       'a11y.menu.open':  'Open Menu',
       'a11y.menu.close': 'Close Menu',
@@ -598,6 +602,7 @@
       'contact.form.message.ph': 'Geben Sie kurze Informationen zu Ihrem Projekt...',
       'contact.form.submit':     'Angebotsanfrage senden',
       'contact.form.sending':    'Wird gesendet...',
+      'contact.form.wait':       'Warten',
 
       'footer.tagline':   'Hochwertige, schnelle und kostengünstigste digitale Lösungen für Unternehmen.',
       'footer.menu':      'Schnellmenü',
@@ -621,6 +626,7 @@
       'toast.err.supabase': 'Verbindungsfehler: Datenbankbibliothek konnte nicht geladen werden.',
       'toast.err.submit':   'Formular konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.',
       'toast.err.system':   'Ein Systemfehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+      'toast.err.cooldown': 'Bitte warten Sie, bevor Sie es erneut versuchen.',
 
       'a11y.menu.open':  'Menü öffnen',
       'a11y.menu.close': 'Menü schließen',
@@ -814,6 +820,7 @@
       'toast.err.supabase': 'خطأ في الاتصال: تعذر تحميل مكتبة قاعدة البيانات.',
       'toast.err.submit':   'تعذر إرسال النموذج. يرجى المحاولة مرة أخرى لاحقاً.',
       'toast.err.system':   'حدث خطأ في النظام. يرجى المحاولة مرة أخرى.',
+      'toast.err.cooldown': 'يرجى الانتظار قبل الإرسال مرة أخرى.',
 
       'a11y.menu.open':  'فتح القائمة',
       'a11y.menu.close': 'إغلاق القائمة',
@@ -846,6 +853,7 @@
       'contact.form.message.ph': 'قدم معلومات موجزة عن مشروعك...',
       'contact.form.submit':     'إرسال طلب العرض',
       'contact.form.sending':    'جاري الإرسال...',
+      'contact.form.wait':       'انتظر',
 
       'contact.card.h3':     'تواصل',
       'contact.card.accent': 'معنا',
